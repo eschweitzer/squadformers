@@ -29,18 +29,16 @@ final class ArticlesViewController: UIViewController {
         APIClient.fetchArticles { [weak self] result in
             switch result {
             case .success(let articles):
-                DispatchQueue.main.async {
-                    self?.articles = articles
-                    self?.tableView.reloadData()
-                }
+                self?.articles = articles
+                self?.tableView.reloadData()
             case .failure(let error):
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Something went wrong", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
-                        self?.fetchData()
-                    }))
-                    self?.present(alert, animated: true, completion: nil)
-                }
+                let alert = UIAlertController(title: "Something went wrong", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: { _ in
+                    self?.fetchData()
+                }))
+                alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.destructive, handler: { _ in
+                }))
+                self?.present(alert, animated: true, completion: nil)
             }
         }
     }

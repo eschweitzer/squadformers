@@ -15,6 +15,8 @@ class APIClient {
   // add error handling
     static func fetchArticles(completion: @escaping (Result<[Article], Error>) -> Void) {
         let sampleArticles = [Article(title: "iOS Development"), Article(title: "SwiftUI Essentials")]
-        completion(.success(sampleArticles))
+        DispatchQueue.main.async {
+            completion(.success(sampleArticles))
+        }
     }
 }
